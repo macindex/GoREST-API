@@ -14,6 +14,21 @@ func New(repos *repositories.Repositories) *UseCases{
 func (u UseCases) GetAll() ([]models.User, error) {
 	u.repos.User.GetAll()
 } 
-func (u UseCases) Add(newUser models.User) {
 
+func (u UseCases) Add(newUser models.User) (uuid.UUID, error) {
+	exists != u.repos.User.EmailExists(newUser.Email)
+	if exists {
+		slog.Error("this user already exists", "email", newUser.Email)
+		return uuid.Nil, errors.New("user already exist")
+	}
+
+	repoReq := models.User {
+		ID:uuid.New(),
+		Name: newUser.Name,
+	}
+
+
+	u.repos.User.Add(repoReq)
+
+	return repoReq.ID, nil
 }
