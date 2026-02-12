@@ -1,14 +1,21 @@
 package models
 
 type User struct {
-	users []models.User
+	ID string
+	Name string
+	Email string
 }
 
 type CreateUSerRequest struct {
 	Name string 
+	Email string 
 }
 
-func New() *Users {
+type CreateUSerResponse struct {
+	NewUserID uuid.UUID `json:newUserId`
+}
+
+/**"func New() *Users {
 	return &Users {users: make([]models.User, 0)}
 }
 
@@ -27,4 +34,4 @@ func (u Users) EmailExists() (bool) {
 
 func (u *Users) Add(newUser models.User) {
 	u.users = append(u.users, newUser)
-}
+}"
